@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>181</width>
+      <width>191</width>
       <height>61</height>
      </rect>
     </property>
@@ -41,7 +41,7 @@
    <widget class="QLabel" name="change_rate">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>350</x>
       <y>50</y>
       <width>91</width>
       <height>51</height>
@@ -69,7 +69,7 @@
    <widget class="QLabel" name="label_18">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>35</x>
       <y>120</y>
       <width>81</width>
       <height>31</height>
@@ -90,7 +90,7 @@
    <widget class="QLabel" name="trade_volume_24h">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>125</x>
       <y>130</y>
       <width>140</width>
       <height>20</height>
@@ -114,7 +114,7 @@
    <widget class="QLabel" name="label_21">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>35</x>
       <y>160</y>
       <width>81</width>
       <height>21</height>
@@ -135,7 +135,7 @@
    <widget class="QLabel" name="trade_price_24h">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>125</x>
       <y>160</y>
       <width>140</width>
       <height>20</height>
@@ -159,7 +159,7 @@
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>12</x>
+      <x>37</x>
       <y>190</y>
       <width>81</width>
       <height>21</height>
@@ -180,7 +180,7 @@
    <widget class="QLabel" name="trade_volume">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>125</x>
       <y>190</y>
       <width>140</width>
       <height>20</height>
@@ -204,7 +204,7 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>255</x>
+      <x>280</x>
       <y>130</y>
       <width>61</width>
       <height>21</height>
@@ -225,7 +225,7 @@
    <widget class="QLabel" name="high_price">
     <property name="geometry">
      <rect>
-      <x>315</x>
+      <x>340</x>
       <y>130</y>
       <width>101</width>
       <height>21</height>
@@ -249,7 +249,7 @@
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>255</x>
+      <x>280</x>
       <y>190</y>
       <width>61</width>
       <height>21</height>
@@ -270,7 +270,7 @@
    <widget class="QLabel" name="low_price">
     <property name="geometry">
      <rect>
-      <x>315</x>
+      <x>340</x>
       <y>160</y>
       <width>101</width>
       <height>21</height>
@@ -294,7 +294,7 @@
    <widget class="QLabel" name="closing_price">
     <property name="geometry">
      <rect>
-      <x>315</x>
+      <x>340</x>
       <y>190</y>
       <width>101</width>
       <height>21</height>
@@ -318,7 +318,7 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>255</x>
+      <x>280</x>
       <y>160</y>
       <width>61</width>
       <height>21</height>
@@ -336,12 +336,12 @@
      <string>저         가 : </string>
     </property>
    </widget>
-   <widget class="QLabel" name="trade_price_2">
+   <widget class="QLabel" name="coin_ticker_label">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>210</x>
       <y>40</y>
-      <width>101</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
