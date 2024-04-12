@@ -10,6 +10,9 @@ from PyQt5.QtGui import QIcon
 
 import pyupbit  # pip install pyupbit
 
+import telegram
+import asyncio
+
 form_class = uic.loadUiType("ui/upbitinfo.ui")[0]
 
 
@@ -116,7 +119,10 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
 
     def fillCoinData(self, trade_price, high_price, low_price, prev_closing_price,
                      trade_volume, acc_trade_volume_24h, acc_trade_price_24h, signed_change_rate):
-        self.trade_price.setText(f"{trade_price:,.1f}원")
+        if trade_price <= 1000:
+            self.trade_price.setText(f"{trade_price:,.1f}원")
+        else:
+            self.trade_price.setText(f"{trade_price:,.0f}원")
         self.high_price.setText(f"{high_price:,.0f}원")
         self.low_price.setText(f"{low_price:,.0f}원")
         self.closing_price.setText(f"{prev_closing_price:,.0f}원")
@@ -124,14 +130,15 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
         self.trade_volume_24h.setText(f"{acc_trade_volume_24h:,.3f}개")
         self.trade_price_24h.setText(f"{acc_trade_price_24h:,.0f}원")
         self.change_rate.setText(f"{signed_change_rate:.2f}%")
-        self.update_style()매도 맷
+        self.update_style()
 
     def alarmButtonAction(self):  # 알람버튼 제어 함수
+        self.alarmFlag = 0  # 전역변수
         if self.alarmButton.text() == "알람시작":
            self.alarmButton.setText("알람중지")
         else:
             self.alarmButton.setText("알람시작")
-    # 토글버튼 : 알람시작 클릭 > 알람중지 변경, 알람중지 클릭 > 알람시작 변경
+    # 토글버튼 : 알람시작 클릭 > 알람중지 변경, 알람중지 클릭 > 알람시작 변경...
 
 
     def alarmDataCheck(self, trade_price):
@@ -143,15 +150,21 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
 
             # 현재 코인 가격이 사용자가 설정해 놓은 매도 가격보다 높아지면 매도알람!
             if sellPrice <= trade_price:
-                print("매도가격 도달!! 매도하세요!!")
+                if self.alarmFlag == 0:
+                    print("매도가격 도달!! 매도하세요!!")
+                    self.telegram_message(f"코인의 현재가격이{trade_price}원이 되었습니다!")
+                    self.telegram_message(f"지정해 놓은 {sellPrice}원 이상입니다. 매도 하세요!")
+                    self.alarmFlag = 1
 
             if buyPrice >= trade_price:
-                print("매수가격 도달!! 매수하세요!!")
+                if self.alarmFlag == 0:
+                    print("매수가격 도달!! 매수하세요!!")
+                    self.telegram_message(f"코인의 현재가격이{trade_price}원이 되었습니다!")
+                    self.telegram_message(f"지정해 놓은 {buyPrice}원 이상입니다. 매수 하세요!")
+                    self.alarmFlag = 1
 
         else:
             pass
-
-
 
     def update_style(self):  # 변화율이 +이면 빨간색, -이면 파란색으로 표시
         if "-" in self.change_rate.text():
@@ -160,6 +173,15 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
         else:
             self.change_rate.setStyleSheet("background-color:red;color:white;")
             self.trade_price.setStyleSheet("color:red;")
+
+
+
+    def telegram_message(self, message):  # 텔레그램에 메시지를 전송해주는 함수
+        bot = telegram.Bot(token="7145450371:AAHk1TnNGgnEJuGbZQr_gq-IGMa_P3M0zKY")
+        chat_id = "5373442259"
+
+        asyncio.run(bot.sendMessage(chat_id=chat_id, text=message))
+
 
 
 if __name__ == "__main__":

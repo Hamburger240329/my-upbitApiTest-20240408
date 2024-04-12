@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>40</y>
-      <width>191</width>
+      <width>241</width>
       <height>61</height>
      </rect>
     </property>
@@ -339,7 +339,7 @@
    <widget class="QLabel" name="coin_ticker_label">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>240</x>
       <y>40</y>
       <width>131</width>
       <height>61</height>
