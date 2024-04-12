@@ -16,7 +16,7 @@ class MainWindow(QMainWindow, form_class):
     def comboBox_setting(self):  # 콤보박스 셋팅
         menulist = ['월요일', '화요일', '수요일', '목요일', '금요일']
 
-        # menulist = sorted(menulist)
+        menulist = sorted(menulist)
 
         self.comboBox.addItems(menulist)
 
