@@ -12,10 +12,12 @@ import pyupbit  # pip install pyupbit
 
 form_class = uic.loadUiType("ui/upbitinfo.ui")[0]
 
+
 # 시그널 클래스->업비트서버에 요청을 넣어서 코인 정보를 가져오는 일을 하는 클래스
 class UpbitCall(QThread):
     # 시그널 함수 선언(정의)
     coinDataSent = pyqtSignal(float, float, float, float, float, float, float, float)
+    alarmDataSent = pyqtSignal(float)  # 현재가 하나만 가지는 시그널 함수 선언(알람용)
 
     def __init__(self, ticker):
     # 시그널 클래스 객체가 선언될 때 메인윈도우 에서 코인 종류(ticker)를 받아오게 설계
@@ -53,6 +55,12 @@ class UpbitCall(QThread):
                 float(signed_change_rate)
             )
             # 업비트 api 호출 딜레이 2초
+
+            self.alarmDataSent.emit(
+                # 알람용 현재가만 메인윈도우에 보내주는 시그널 함수
+                float(trade_price)
+            )
+            # 업비트 api 호출 딜레이 2초
             time.sleep(2)
 
     def close(self):
@@ -69,12 +77,14 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
 
         self.ticker = "BTC"
 
-        self.ubc = UpbitCall("BTC")  # 시그널 클래스로 객체 선언
+        self.ubc = UpbitCall(self.ticker)  # 시그널 클래스로 객체 선언
         self.ubc.coinDataSent.connect(self.fillCoinData)
+        self.ubc.coinDataSent.connect(self.alarmDataCheck)
         self.ubc.start()  # 시그널 클래스 run() 실행
         self.combobox_setting()  # 콤보박스 초기화 설정 함수 호출
         self.coin_comboBox.currentIndexChanged.connect(self.coin_comboBox_selected)
-
+        # 콤보박스의 메뉴 선택 변경 이벤트가 발생했을때 호출될 함수 설정
+        self.alarmButton.clicked.connect(self.alarmButtonAction)
 
     def combobox_setting(self):  # 코인리스트 콤보박스 설정 함수
         tickerList = pyupbit.get_tickers(fiat="KRW")  # 코인 종류(ticker list) 가져오기
@@ -93,13 +103,14 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
         self.coin_comboBox.addItems(coinList)
 
     def coin_comboBox_selected(self):  # 콤보박스에서 새로운 코인 종류가  선택되었을 때 호출 함수
-        selected_ticker = self.coin_comboBox.currentText()
+        selected_ticker = self.coin_comboBox.currentText()  # 콤보박스에서 선택된 메뉴의 텍스트 가져오기
         self.ticker = selected_ticker  # 새롭게 선택한 코인 ticker 로 변경
 
         self.coin_ticker_label.setText(self.ticker)
         self.ubc.close()  # while문의 무한루프가 stop
         self.ubc = UpbitCall(self.ticker)  # 새로운 시그널 클래스 객체를  생성(새로운 ticker를 넣어서)
         self.ubc.coinDataSent.connect(self.fillCoinData)
+        self.ubc.coinDataSent.connect(self.alarmDataCheck)
         self.ubc.start()  # 시그널 클래스 run() 실행
         
 
@@ -114,6 +125,26 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
         self.trade_price_24h.setText(f"{acc_trade_price_24h:,.0f}원")
         self.change_rate.setText(f"{signed_change_rate:.2f}%")
         self.update_style()
+
+    def alarmButtonAction(self):  # 알람버튼 제어 함수
+        if self.alarmButton.text() == "알람시작":
+            self.alarmButton.setText("알람중지")
+        else:
+            self.alarmButton.setText("알람시작")
+    # 토글버튼 : 알람시작 클릭 > 알람중지 변경, 알람중지 클릭 > 알람시작 변경
+
+
+    def alarmDataCheck(self, trade_price):
+        pass
+        # sellPrice = float(self.alarm_price1.text())  # 사용자가 입력한 매도목표가격
+        # buyPrice = float(self.alarm_price2.text())  # 사용자가 입력한 매수목표가격
+        # 자주 타입 오류 발생함. float int str 3가지
+
+        # sellPrice 초기값을 넣어주지 않으면 프로그램이 팅김
+        # 현재 코인 가격이 사용자가 설정해 놓은 매도 가격보다 높아지면 매도알람!
+        # if sellPrice <= trade_price:
+        #     print("매도가격 도달!! 매도하세요!!")
+            
 
 
     def update_style(self):  # 변화율이 +이면 빨간색, -이면 파란색으로 표시
