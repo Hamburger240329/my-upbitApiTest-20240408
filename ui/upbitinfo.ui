@@ -129,7 +129,7 @@
      </font>
     </property>
     <property name="text">
-     <string>24h거래금액: </string>
+     <string>거래금액(24H): </string>
     </property>
    </widget>
    <widget class="QLabel" name="trade_price_24h">
@@ -160,7 +160,7 @@
     <property name="geometry">
      <rect>
       <x>37</x>
-      <y>190</y>
+      <y>193</y>
       <width>81</width>
       <height>21</height>
      </rect>
@@ -174,14 +174,14 @@
      </font>
     </property>
     <property name="text">
-     <string>거  래  량  가 : </string>
+     <string>최 근 거 래 량 : </string>
     </property>
    </widget>
    <widget class="QLabel" name="trade_volume">
     <property name="geometry">
      <rect>
       <x>125</x>
-      <y>190</y>
+      <y>193</y>
       <width>140</width>
       <height>20</height>
      </rect>
@@ -204,9 +204,9 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>270</x>
       <y>130</y>
-      <width>61</width>
+      <width>81</width>
       <height>21</height>
      </rect>
     </property>
@@ -219,15 +219,15 @@
      </font>
     </property>
     <property name="text">
-     <string>고         가 : </string>
+     <string>고가(당일) : </string>
     </property>
    </widget>
    <widget class="QLabel" name="high_price">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>350</x>
       <y>130</y>
-      <width>101</width>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -249,9 +249,9 @@
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>190</y>
-      <width>61</width>
+      <x>270</x>
+      <y>193</y>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -264,15 +264,15 @@
      </font>
     </property>
     <property name="text">
-     <string>종         가 : </string>
+     <string>전 일 종 가 : </string>
     </property>
    </widget>
    <widget class="QLabel" name="low_price">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>350</x>
       <y>160</y>
-      <width>101</width>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -294,9 +294,9 @@
    <widget class="QLabel" name="closing_price">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>190</y>
-      <width>101</width>
+      <x>350</x>
+      <y>193</y>
+      <width>91</width>
       <height>21</height>
      </rect>
     </property>
@@ -318,9 +318,9 @@
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>270</x>
       <y>160</y>
-      <width>61</width>
+      <width>71</width>
       <height>21</height>
      </rect>
     </property>
@@ -333,7 +333,7 @@
      </font>
     </property>
     <property name="text">
-     <string>저         가 : </string>
+     <string>저가(당일) : </string>
     </property>
    </widget>
    <widget class="QLabel" name="coin_ticker_label">

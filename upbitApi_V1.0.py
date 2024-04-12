@@ -116,7 +116,7 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
 
     def fillCoinData(self, trade_price, high_price, low_price, prev_closing_price,
                      trade_volume, acc_trade_volume_24h, acc_trade_price_24h, signed_change_rate):
-        self.trade_price.setText(f"{trade_price:,.0f}원")
+        self.trade_price.setText(f"{trade_price:,.1f}원")
         self.high_price.setText(f"{high_price:,.0f}원")
         self.low_price.setText(f"{low_price:,.0f}원")
         self.closing_price.setText(f"{prev_closing_price:,.0f}원")
@@ -128,23 +128,29 @@ class MainWindow(QMainWindow, form_class):  # 슬롯 클래스
 
     def alarmButtonAction(self):  # 알람버튼 제어 함수
         if self.alarmButton.text() == "알람시작":
-            self.alarmButton.setText("알람중지")
+           self.alarmButton.setText("알람중지")
         else:
             self.alarmButton.setText("알람시작")
     # 토글버튼 : 알람시작 클릭 > 알람중지 변경, 알람중지 클릭 > 알람시작 변경
 
 
     def alarmDataCheck(self, trade_price):
-        pass
-        # sellPrice = float(self.alarm_price1.text())  # 사용자가 입력한 매도목표가격
-        # buyPrice = float(self.alarm_price2.text())  # 사용자가 입력한 매수목표가격
-        # 자주 타입 오류 발생함. float int str 3가지
+        if self.alarmButton.text() == "알람중지":
+            sellPrice = float(self.alarm_price1.text())  # 사용자가 입력한 매도목표가격
+            buyPrice = float(self.alarm_price2.text())  # 사용자가 입력한 매수목표가격
+            # 자주 타입 오류 발생함. float int str 3가지
+            # sellPrice 초기값을 넣어주지 않으면 프로그램이 팅김
 
-        # sellPrice 초기값을 넣어주지 않으면 프로그램이 팅김
-        # 현재 코인 가격이 사용자가 설정해 놓은 매도 가격보다 높아지면 매도알람!
-        # if sellPrice <= trade_price:
-        #     print("매도가격 도달!! 매도하세요!!")
-            
+            # 현재 코인 가격이 사용자가 설정해 놓은 매도 가격보다 높아지면 매도알람!
+            if sellPrice <= trade_price:
+                print("매도가격 도달!! 매도하세요!!")
+
+            if buyPrice >= trade_price:
+                print("매수가격 도달!! 매수하세요!!")
+
+        else:
+            pass
+
 
 
     def update_style(self):  # 변화율이 +이면 빨간색, -이면 파란색으로 표시
