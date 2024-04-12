@@ -11,7 +11,7 @@ class MainWindow(QMainWindow, form_class):
         super().__init__()
         self.setupUi(self)
         self.comboBox_setting()
-        # self.comboBox.currentIndexChanged.connect(self.menu_select)
+        self.comboBox.currentIndexChanged.connect(self.menu_select)
 
     def comboBox_setting(self):  # 콤보박스 셋팅
         menulist = ['월요일', '화요일', '수요일', '목요일', '금요일']
@@ -21,10 +21,10 @@ class MainWindow(QMainWindow, form_class):
         self.comboBox.addItems(menulist)
 
 
-    # def menu_select(self):  # 콤보박스 메뉴가 변경되었을 때 호출되는 함수
-    #     comboText = self.comboBox.currentText()
-    #
-    #     self.output_label.setText(comboText)
+    def menu_select(self):  # 콤보박스 메뉴가 변경되었을 때 호출되는 함수
+        comboText = self.comboBox.currentText()
+
+        self.output_label.setText(comboText)
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)
